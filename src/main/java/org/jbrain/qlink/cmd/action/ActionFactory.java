@@ -296,6 +296,16 @@ public class ActionFactory {
       return new HabitatAction(b, start, len);
     }
 
+    if (action.equals(UploadDescLastLine.MNEMONIC)) {
+      return new UploadDescLastLine(b, start, len);
+    }
+    if (action.equals(UploadData.MNEMONIC_NEXT) || action.equals(UploadData.MNEMONIC_LAST)) {
+      return new UploadData(b, start, len);
+    }
+    if (action.equals(UploadAbort.MNEMONIC)) {
+      return new UploadAbort(b, start, len);
+    }
+
     return new UnknownAction(b, start, len);
   }
 }

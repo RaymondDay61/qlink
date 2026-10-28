@@ -159,8 +159,13 @@ public class DepartmentMenu extends AbstractMenuState {
           pid = 0;
         }
         bid = ((MenuEntry) _alMenu.get(index)).getID();
+        if (((MenuEntry) _alMenu.get(index)).getType() == MenuItem.UPLOAD) {
+          _log.debug("User requests a file upload into menu " + _iCurrMenuID);
+          bid = -1;
+        }
       }
-      state = new PostMessage(_session, bid, pid, _iNextMessageID);
+      if (bid == -1) state = new UploadFile(_session, _iCurrMenuID, null);
+      else state = new PostMessage(_session, bid, pid, _iNextMessageID);
       state.activate();
     } else if (a instanceof ResumeService) {
       refreshAccount();
